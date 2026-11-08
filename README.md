@@ -10,7 +10,8 @@ as `~/.dotfiles` (`github:loeclos/nixvim`).
 - `flake.nix` — `nixosConfigurations.work`, inputs `nixpkgs` + `nixvim`
   (+ `pinned-nixpkgs`/`apple-fonts`/`sf-pro-dmg` for SF fonts, same as `~/.dotfiles`)
 - `configuration.nix` — minimal host config, ly login, i3 via `configFile = ./i3/config`,
-  `loeclos.cachix.org` substituter, SF fontconfig defaults
+  `loeclos.cachix.org` substituter, SF fontconfig defaults, git identity,
+  zsh + shell aliases + `rbld`/`update` helpers
 - `packages/sf-pro-nerd.nix` — SF Pro Display nerd build, copied from `~/.dotfiles`
 - `hardware-configuration.nix` — placeholder; regenerate on the target machine
 - `i3/config` — stock i3 default, except `$mod Mod4` and vim `hjkl` motions

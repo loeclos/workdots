@@ -31,10 +31,45 @@ in
 
   users.users.loeclos = {
     isNormalUser = true;
+    shell = pkgs.zsh;
     extraGroups = [
       "wheel"
       "networkmanager"
     ];
+  };
+
+  # git identity + defaults, same as ~/.dotfiles (system-wide /etc/gitconfig).
+  environment.etc."gitconfig".text = ''
+    [user]
+      name = gleb
+      email = 116607327+loeclos@users.noreply.github.com
+    [init]
+      defaultBranch = main
+    [credential]
+      helper = !gh auth git-credential
+  '';
+
+  # Shell helpers, same as ~/.dotfiles.
+  environment.shellAliases = {
+    edit = "sudo -e";
+    shell = "nix-shell";
+    dots = "cd ~/Projects/workdots";
+  };
+
+  programs.zsh = {
+    enable = true;
+    enableCompletion = true;
+    autosuggestions.enable = true;
+    syntaxHighlighting.enable = true;
+
+    interactiveShellInit = ''
+      rbld() { sudo nixos-rebuild switch --flake "$HOME/Projects/workdots#work"; }
+      update() { nix flake update --flake "$HOME/Projects/workdots"; }
+    '';
+
+    histSize = 10000;
+    histFile = "$HOME/.zsh_history";
+    setOptions = [ "HIST_IGNORE_ALL_DUPS" ];
   };
 
   nixpkgs.config.allowUnfree = true;
@@ -59,6 +94,8 @@ in
     ungoogled-chromium
     alacritty
     git
+    gh
+    unzip
     networkmanagerapplet
     xss-lock
     dex
