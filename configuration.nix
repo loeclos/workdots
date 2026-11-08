@@ -73,10 +73,21 @@ in
   };
 
   nixpkgs.config.allowUnfree = true;
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
+  nix.settings = {
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
+    # Same binary cache as ~/.dotfiles — pulls prebuilt SF fonts etc.
+    substituters = [ "https://loeclos.cachix.org" ];
+    trusted-public-keys = [
+      "loeclos.cachix.org-1:ubZ/sF5yMoLs/MD80ACyL1jMHWNj/ctfFSYDLAVaClo="
+    ];
+    trusted-users = [
+      "root"
+      "loeclos"
+    ];
+  };
 
   environment.systemPackages = with pkgs; [
     editorPkg
@@ -91,7 +102,19 @@ in
     pulseaudio
   ];
 
-  fonts.packages = with pkgs; [ dejavu_fonts ];
+  # Same SF fonts as ~/.dotfiles: custom SF Pro Display nerd build
+  # (packages/sf-pro-nerd.nix) + sf-mono-nerd from apple-fonts.
+  fonts = {
+    packages = with pkgs; [
+      sf-pro-nerd
+      sf-mono-nerd
+    ];
+
+    fontconfig.defaultFonts = {
+      monospace = [ "SFMono Nerd Font" ];
+      sansSerif = [ "SFProDisplay Nerd Font" ];
+    };
+  };
 
   system.stateVersion = "25.11";
 }
