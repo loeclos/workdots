@@ -92,7 +92,8 @@ in
   environment.systemPackages = with pkgs; [
     editorPkg
     ungoogled-chromium
-    alacritty
+    ghostty
+    vim
     git
     gh
     unzip
