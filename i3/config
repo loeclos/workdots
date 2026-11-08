@@ -7,7 +7,6 @@
 #      conflicts with $mod+h = focus left under vim motions, so horizontal
 #      split moves to $mod+b.
 #   4. No titlebars: default_border pixel 1 (tiling + floating).
-#   5. Terminal: ghostty instead of i3-sensible-terminal.
 #      Everything else is stock i3.
 #
 # See https://i3wm.org/docs/userguide.html for a complete reference.
@@ -61,9 +60,8 @@ tiling_drag modifier titlebar
 default_border pixel 1
 default_floating_border pixel 1
 
-# start a terminal (ghostty instead of i3-sensible-terminal, so $mod+Return
-# always opens the configured terminal)
-bindsym $mod+Return exec ghostty
+# start a terminal
+bindsym $mod+Return exec i3-sensible-terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill
