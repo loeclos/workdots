@@ -104,15 +104,24 @@ in
 
   # Same SF fonts as ~/.dotfiles: custom SF Pro Display nerd build
   # (packages/sf-pro-nerd.nix) + sf-mono-nerd from apple-fonts.
+  # DejaVu stays as the serif font and as fallback for glyphs SF lacks (e.g. Arabic).
   fonts = {
     packages = with pkgs; [
       sf-pro-nerd
       sf-mono-nerd
+      dejavu_fonts
     ];
 
     fontconfig.defaultFonts = {
-      monospace = [ "SFMono Nerd Font" ];
-      sansSerif = [ "SFProDisplay Nerd Font" ];
+      serif = [ "DejaVu Serif" ];
+      monospace = [
+        "SFMono Nerd Font"
+        "DejaVu Sans Mono"
+      ];
+      sansSerif = [
+        "SFProDisplay Nerd Font"
+        "DejaVu Sans"
+      ];
     };
   };
 
